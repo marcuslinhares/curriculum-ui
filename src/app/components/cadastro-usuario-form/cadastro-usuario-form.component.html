@@ -1,0 +1,67 @@
+<div class="p-7 pt-6 pb-6 rounded-4xl bg-white/10 backdrop-blur-md shadow-lg w-full max-w-md">
+    
+    <h2 class="text-2xl font-bold text-center text-color mb-4">Cadastro</h2>
+
+    <form [formGroup]="cadastroForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-2">
+
+        <div class="flex flex-col space-y-1">
+            <p-floatlabel variant="on">
+              <input pInputText id="nome" type="nome" formControlName="nome" autocomplete="off" class="w-full" />
+              <label for="nome">Nome</label>
+            </p-floatlabel>
+            <div *ngIf="cadastroForm.get('nome')?.touched && cadastroForm.get('nome')?.invalid"
+                class="text-red-500 text-xs">
+                <small *ngIf="cadastroForm.get('nome')?.errors?.['required']">Nome é obrigatório.</small>
+            </div>
+        </div>
+
+        <div class="flex flex-col space-y-1">
+            <p-floatlabel variant="on">
+                <input pInputText id="email" type="email" formControlName="email" autocomplete="off" class="w-full" />
+                <label for="email">Email</label>
+            </p-floatlabel>
+            <div *ngIf="cadastroForm.get('email')?.touched && cadastroForm.get('email')?.invalid"
+                class="text-red-500 text-xs">
+                <small *ngIf="cadastroForm.get('email')?.errors?.['required']">Email é obrigatório.</small>
+                <small *ngIf="cadastroForm.get('email')?.errors?.['email']">Email inválido.</small>
+            </div>
+        </div>
+
+        <div class="flex flex-col space-y-1">
+            <p-floatlabel variant="on">
+                <p-password id="password" type="password" [toggleMask]="true" [feedback]="false"
+                    formControlName="senha" class="w-full" />
+                <label for="senha">Senha</label>
+            </p-floatlabel>
+            <div *ngIf="cadastroForm.get('senha')?.touched && cadastroForm.get('senha')?.invalid"
+                class="text-red-500 text-xs">
+                <small>Senha é obrigatória, com pelo menos 6 caracteres.</small>
+            </div>
+        </div>
+
+        <div class="flex flex-col space-y-1">
+            <p-floatlabel variant="on">
+                <p-password id="confirmaSenha" type="password" [toggleMask]="true" [feedback]="false"
+                    formControlName="confirmaSenha" class="w-full" />
+                <label for="confirmaSenha">Senha</label>
+            </p-floatlabel>
+            <div *ngIf="cadastroForm.errors?.['senhasDiferentes'] && (cadastroForm.touched || cadastroForm.dirty)" class="text-red-500 text-xs">
+                <small>As senhas não coincidem.</small>
+            </div>
+        </div>
+
+        <button pButton type="submit" severity="contrast" label="Cadastrar" class="mt-2 w-full"
+            [disabled]="cadastroForm.invalid">
+        </button>
+
+    </form>
+
+    <div class="mb-0 mt-3 text-center">
+        <a
+            class="text-indigo-400 hover:text-indigo-600 transition-colors duration-300 font-semibold cursor-pointer"
+            (click)="toLogin()">
+            Entre
+        </a>
+    </div>
+
+</div>

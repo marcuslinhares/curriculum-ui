@@ -1,0 +1,16 @@
+<main-layout>
+  <div class="grid gap-4 p-4 w-full max-w-7xl mx-auto" [ngClass]="{
+      'grid-cols-1': screenSize === 'sm',
+      'grid-cols-2': screenSize === 'md',
+      'grid-cols-3': screenSize === 'lg',
+      'grid-cols-4': screenSize === 'xl'
+    }" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="300" (scrolled)="onScroll()">
+    <ng-container *ngFor="let curriculo of curriculos">
+      <curriculo-card [curriculo]="curriculo"></curriculo-card>
+    </ng-container>
+  </div>
+
+  <div class="text-center py-4" *ngIf="isLoading">
+    <p>Carregando...</p>
+  </div>
+</main-layout>

@@ -1,0 +1,11 @@
+<div class="card">
+    <p-menubar [model]="items" [style]="{ 'flex-wrap': 'wrap' }" styleClass="responsive-menubar">
+        <ng-template pTemplate="end">
+            <div class="flex items-center gap-2 flex-wrap">
+                <p-button icon="pi pi-moon" severity="contrast" (click)="toggleDarkMode()"></p-button>
+
+                <p-button icon="pi pi-sign-out" severity="danger" label="Sair" (click)="logout()"></p-button>
+            </div>
+        </ng-template>
+    </p-menubar>
+</div>

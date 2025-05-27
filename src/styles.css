@@ -1,1 +1,36 @@
-/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+@import "primeicons/primeicons.css";
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+app-root {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+html:not(.my-app-dark) .p-float-label > label {
+    color: black !important;
+}
+
+.my-app-dark .p-float-label > label {
+    color: aliceblue !important;
+}
+
+.p-inputtext:enabled:focus {
+    border-color: black !important;
+    box-shadow: 0 0 0 0.02rem rgba(0, 0, 0, 0.2) !important;
+}
+
+.my-app-dark .p-inputtext:enabled:focus {
+    border-color: aliceblue !important;
+    box-shadow: 0 0 0 0.02rem aliceblue !important;
+}
+
+

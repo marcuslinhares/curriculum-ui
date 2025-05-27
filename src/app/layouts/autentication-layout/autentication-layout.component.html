@@ -1,0 +1,11 @@
+<div class="flex flex-col min-h-screen">
+    <div class="flex justify-end p-3">
+        <p-button icon="pi pi-moon" severity="contrast" (click)="toggleDarkMode()"></p-button>
+    </div>
+
+    <main class="flex flex-1 justify-center items-center">
+        <ng-content></ng-content>
+    </main>
+
+    <footer></footer>
+</div>
