@@ -1,0 +1,68 @@
+name: Deploy Curriculum
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Build, Push e Deploy Curriculum
+    runs-on: ubuntu-latest
+
+    env:
+      REGISTRY: ghcr.io
+      IMAGE_NAME: ${{ github.repository_owner }}/curriculum
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Cache de dependências npm
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Injetar variável de ambiente no Angular
+        run: |
+          set -e
+          echo "export const environment = {" > src/environments/environment.ts
+          echo "  ApiBaseUrl: '${{ secrets.ApiBaseUrl }}'," >> src/environments/environment.ts
+          echo "};" >> src/environments/environment.ts
+
+      - name: Instalar dependências e build Angular
+        run: |
+          set -e
+          npm ci
+          npm run build -- --configuration=production
+          
+      - name: Listar conteúdo do dist
+        run: ls -R dist
+
+      - name: Login no GHCR
+        run: |
+          echo "${{ secrets.GHCR_TOKEN }}" | docker login $REGISTRY -u ${{ github.repository_owner }} --password-stdin
+
+      - name: Build e push da imagem Docker
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+
+      - name: Disparar webhook de deploy no Dokploy
+        if: success()
+        run: |
+          set -e
+          curl --fail -X POST -H "User-Agent: GitHubActions" "${{ secrets.DOKPLOY_WEBHOOK_URL }}"
