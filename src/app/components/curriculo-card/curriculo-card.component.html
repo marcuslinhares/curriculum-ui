@@ -1,0 +1,38 @@
+<p-card 
+    class="p-card w-full md:w-18rem h-[350px] cursor-pointer transition-transform duration-300 hover:scale-105"
+    (click)="goToAvaliacao()"
+>
+    <div class="flex flex-col gap-3 h-full p-3">
+        <div>
+            <strong>Nome:</strong> {{ curriculo.candidato.usuario.nome }}
+        </div>
+        <div>
+            <strong>Situação:</strong>
+            <p-tag 
+                [value]="getSituacaoString(curriculo.candidato.situacao)"
+                [severity]="getSeveritySituacao(curriculo.candidato.situacao)">
+            </p-tag>
+        </div>
+        <div>
+            <strong>Função:</strong> {{ curriculo.funcao }}
+        </div>
+
+        <div class="flex-1 overflow-auto mt-2">
+            <div *ngIf="curriculo.competencias?.length; else semCompetencias">
+                <ul class="list-none p-0 m-0 max-h-[140px]">
+                    <li *ngFor="let comp of curriculo.competencias" class="flex items-center gap-2">
+                        <span>{{ comp.descricao }}:</span>
+                        <p-tag 
+                            [value]="comp.nivel" 
+                            [severity]="getSeverityNivel(comp.nivel)">
+                        </p-tag>
+                    </li>
+                </ul>
+            </div>
+
+            <ng-template #semCompetencias>
+                <p>Não há competências cadastradas.</p>
+            </ng-template>
+        </div>
+    </div>
+</p-card>

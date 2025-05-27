@@ -1,0 +1,21 @@
+<main-layout>
+    <div class="flex flex-column md:flex-row justify-content-center align-items-start p-4 gap-2 w-full">
+
+        <curriculo-view [curriculo]="curriculo"></curriculo-view>
+
+        <p-card class="flex justify-content-center w-full md:w-20rem">
+            <div class="flex flex-wrap gap-3 justify-content-center">
+                <button pButton type="button" class="p-button-success p-button-rounded text-xl px-4 py-3"
+                    (click)="avaliarCandidato(true)">
+                    Aprovar
+                </button>
+
+                <button pButton type="button" class="p-button-danger p-button-rounded text-xl px-4 py-3"
+                    (click)="avaliarCandidato(false)">
+                    Reprovar
+                </button>
+            </div>
+        </p-card>
+
+    </div>
+</main-layout>
