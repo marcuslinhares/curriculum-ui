@@ -1,0 +1,7 @@
+<main-layout>
+    <div class="flex flex-column md:flex-row justify-content-center align-items-start p-4 gap-2 w-full">
+        <cadastro-candidato-form *ngIf="mostrarCadastroCandidato"></cadastro-candidato-form>
+        <cadastro-curriculo-form *ngIf="mostrarCadastroCurriculo"></cadastro-curriculo-form>
+        <curriculo-view *ngIf="curriculo" [curriculo]="curriculo"></curriculo-view>
+    </div> 
+</main-layout> 

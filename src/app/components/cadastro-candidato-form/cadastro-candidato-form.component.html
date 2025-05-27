@@ -1,0 +1,55 @@
+<div class="p-7 pt-6 pb-6 rounded-4xl bg-white/10 backdrop-blur-md shadow-lg w-full max-w-md">
+    
+    <h2 class="text-2xl font-bold text-center text-color mb-4">Completar cadastro</h2>
+
+    <form [formGroup]="cadastroCompletoForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-2">
+
+        <div class="flex flex-col space-y-1">
+            <p-floatlabel variant="on" class="w-full">
+                <p-inputMask mask="999.999.999-99" id="cpf" [ngStyle]="{'width': '100%'}" formControlName="cpf" class="w-full block"></p-inputMask>
+                <label for="cpf">CPF</label>
+            </p-floatlabel>
+            <div *ngIf="cadastroCompletoForm.get('cpf')?.touched && cadastroCompletoForm.get('cpf')?.invalid" class="text-red-500 text-xs">
+                <small *ngIf="cadastroCompletoForm.get('cpf')?.errors?.['required']">CPF é obrigatório.</small>
+                <small *ngIf="cadastroCompletoForm.get('cpf')?.errors?.['cpfInvalido']">CPF inválido.</small>
+            </div>
+        </div>
+
+        <div class="flex flex-col space-y-1">
+            <p-floatlabel variant="on" class="w-full">
+                <p-calendar 
+                    id="dataNasc"
+                    formControlName="dataNasc"
+                    [showIcon]="true"
+                    dateFormat="dd/mm/yy"
+                    placeholder=" "
+                    class="w-full block">
+            </p-calendar>
+            
+            <label for="dataNasc">Data de Nascimento</label>
+            </p-floatlabel>
+            <div *ngIf="cadastroCompletoForm.get('dataNasc')?.touched && cadastroCompletoForm.get('dataNasc')?.invalid"
+                class="text-red-500 text-xs">
+                <small *ngIf="cadastroCompletoForm.get('dataNasc')?.errors?.['required']">Data de Nascimento é obrigatória.</small>
+                <small *ngIf="cadastroCompletoForm.get('dataNasc')?.errors?.['dataNasc']">Data inválida.</small>
+            </div>
+        </div>
+
+        <div class="flex flex-col space-y-1">
+            <p-floatlabel variant="on" class="w-full">
+                <p-inputMask mask="(99) 99999-9999" id="telefone" formControlName="telefone" class="w-full block"></p-inputMask>
+                <label for="telefone">Telefone</label>
+            </p-floatlabel>
+            <div *ngIf="cadastroCompletoForm.get('telefone')?.touched && cadastroCompletoForm.get('telefone')?.invalid"
+                class="text-red-500 text-xs">
+                <small>Telefone é obrigatório, com pelo menos 6 caracteres.</small>
+            </div>
+        </div>
+
+        <button pButton type="submit" severity="contrast" label="Cadastrar" class="mt-2 w-full"
+            [disabled]="cadastroCompletoForm.invalid">
+        </button>
+
+    </form>
+
+</div>

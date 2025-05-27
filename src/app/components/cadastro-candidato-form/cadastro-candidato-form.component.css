@@ -1,0 +1,19 @@
+:host ::ng-deep .p-inputtext {
+    width: 100% !important;
+    display: block;
+}
+
+:host ::ng-deep .p-password input {
+    width: 100% !important;
+    display: block;
+}
+
+:host ::ng-deep .p-inputmask input {
+    width: 100% !important;
+    display: block;
+}
+
+:host ::ng-deep .p-calendar .p-inputtext input {
+    width: 100% !important;
+    display: block;
+}
