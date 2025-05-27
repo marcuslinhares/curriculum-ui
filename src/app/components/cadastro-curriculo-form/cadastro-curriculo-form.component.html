@@ -1,0 +1,79 @@
+<div class="p-5 pt-6 pb-6 rounded-4xl bg-white/10 backdrop-blur-md shadow-lg w-full max-w-md">
+    <h2 class="text-2xl font-bold text-center text-color mb-4">Cadastrar Currículo</h2>
+
+    <form [formGroup]="curriculoForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-2">
+
+        <ng-container *ngIf="etapa === 1">
+            <p-floatlabel class="mb-3 mt-3">
+                <p-dropdown id="escolaridade" formControlName="escolaridade" [options]="escolaridades" optionLabel="label"
+                    optionValue="value" class="w-full">
+                </p-dropdown>
+                <label for="escolaridade">Escolaridade</label>
+            </p-floatlabel>
+
+            <p-floatlabel>
+                <input pInputText id="funcao" formControlName="funcao" class="w-full">
+                <label for="funcao">Função</label>
+            </p-floatlabel>
+
+            <button pButton type="button" severity="contrast" label="Continuar"
+                (click)="irParaEtapa(2)" [disabled]="curriculoForm.invalid" class="mt-2 w-full">
+            </button>
+        </ng-container>
+
+        <ng-container *ngIf="etapa === 2">
+            <div class="flex flex-col space-y-1">
+                <p-floatlabel variant="on" class="w-full">
+                    <input pInputText id="descricaoCompetencia" [formControl]="descricaoCompetenciaControl"
+                        class="w-full block" />
+                    <label for="descricaoCompetencia">Descrição da Competência</label>
+                </p-floatlabel>
+            </div>
+
+            <p-floatlabel variant="on" class="mt-2 w-full">
+                <p-dropdown
+                    id="nivelCompetencia"
+                    [options]="nivelCompetenciaOptions"
+                    [formControl]="nivelCompetenciaControl"
+                    optionLabel="label"
+                    optionValue="value"
+                    class="w-full"
+                    [style]="{ width: '100%' }">
+                </p-dropdown>
+                <label for="nivelCompetencia">Nível Competência</label>
+            </p-floatlabel>
+            
+
+            <button pButton type="button" severity="secondary" label="Adicionar Competência"
+                (click)="adicionarCompetencia()" class="mt-2 w-full">
+            </button>
+
+            <ul class="flex flex-col gap-2 max-h-26 overflow-y-auto">
+                <li *ngFor="let comp of competencias.controls; let i = index"
+                    class="flex justify-between items-center border border-gray-300 rounded-lg p-2 bg-white/20 backdrop-blur-sm shadow">
+                    
+                    <span class="break-words max-w-[80%]">
+                        {{ comp.value.descricao }} - {{ getNivelLabel(comp.value.nivel) }}
+                    </span>
+                    
+                    <button type="button" 
+                            (click)="removerCompetencia(i)" 
+                            class="text-red-500 hover:text-red-700 cursor-pointer ml-2">
+                        <i class="pi pi-trash"></i>
+                    </button>
+                </li>
+            </ul>
+            
+            <div class="flex justify-between gap-2 mt-2">
+                <button pButton type="button" severity="secondary" label="Voltar"
+                    (click)="irParaEtapa(1)" class="w-full">
+                </button>
+
+                <button pButton type="submit" severity="contrast" label="Cadastrar Currículo" class="w-full"
+                    [disabled]="curriculoForm.invalid">
+                </button>
+            </div>
+        </ng-container>
+
+    </form>
+</div>

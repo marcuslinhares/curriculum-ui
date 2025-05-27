@@ -1,0 +1,12 @@
+.competencias-lista {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.competencia-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}

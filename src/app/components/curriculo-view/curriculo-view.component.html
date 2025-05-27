@@ -1,0 +1,41 @@
+<p-card *ngIf="curriculo" class="p-card p-3 mb-4">
+    <strong>
+        <h1 class="text-center mb-5">Detalhes do curriculo</h1>
+    </strong>
+    <div class="p-grid p-align-center p-mb-4">
+        <div class="p-col-12 p-md-6 p-mb-3 mb-3">
+            <div><strong>Nome:</strong> {{ curriculo.candidato.usuario.nome }}</div>
+            <div><strong>CPF:</strong> {{ formatCPF(curriculo.candidato.cpf) }}</div>
+            <div><strong>Data Nasc:</strong> {{ curriculo.candidato.dataNasc | date:'dd/MM/yyyy' }}</div>
+            <div><strong>Telefone:</strong> {{ formatTelefone(curriculo.candidato.telefone) }}</div>
+            <div><strong>Situação: </strong>
+                <p-tag [value]="getSituacaoString(curriculo.candidato.situacao)"
+                    [severity]="getSeveritySituacao(curriculo.candidato.situacao)">
+                </p-tag>
+            </div>
+        </div>
+
+        <div class="p-col-12 p-md-6 p-mb-3 mb-3">
+            <div><strong>Escolaridade: </strong>
+                <p-tag [value]="getEscolaridadeString(curriculo.escolaridade)" severity="info"></p-tag>
+            </div>
+            <div><strong>Função: </strong> {{ curriculo.funcao }}</div>
+        </div>
+    </div>
+
+    <div *ngIf="curriculo.competencias && curriculo.competencias.length > 0; else semCompetencias">
+        <ul class="competencias-lista p-mt-2" style="max-height: 170px; overflow-y: auto; padding-left: 0;">
+            <li *ngFor="let comp of curriculo.competencias" class="competencia-item p-mb-2 gap-2"
+                style="display: flex; align-items: center; max-width: 150px;">
+                <div style="display: flex; flex-direction: column;">
+                    <span>{{ comp.descricao }}:</span>
+                    <p-tag [value]=" comp.nivel" [severity]="getSeverityNivel(comp.nivel)" class="w-[200px] p-ml-2"></p-tag>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <ng-template #semCompetencias>
+        <p class="p-mt-2">Não há competências cadastradas.</p>
+    </ng-template>
+</p-card>
