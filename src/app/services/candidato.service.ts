@@ -7,6 +7,7 @@ import { environment } from '../../environments/environment';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { AuthService } from './auth.service';
+import { RelatorioSituacao } from '../models/relatorioSituacoes';
 
 @Injectable({
   providedIn: 'root'
@@ -69,6 +70,20 @@ export class CandidatoService {
     return this.http.get<CandidatoResponseDTO>(
       `${this.apiUrl}/candidatos/${candidatoId}?aprovado=${aprovado}`,
       {headers}
+    );
+  }
+
+  getRelatorioSituacao(): Observable<RelatorioSituacao[]> {
+    const token = this.authService.getToken();
+  
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+  
+    return this.http.get<RelatorioSituacao[]>(
+      `${this.apiUrl}/candidatos/sitacoes`,
+      { headers }
     );
   }
   
