@@ -27,6 +27,12 @@ export class MenuComponent implements OnInit {
         icon: 'pi pi-home',
         routerLink: ['/']
       },
+
+      {
+        label: 'Relatórios',
+        icon: 'pi pi-chart-bar',
+        routerLink: ['/relatorios']
+      },
     ];
   }
 

@@ -8,6 +8,7 @@ import { environment } from '../../environments/environment';
 import { Curriculo } from '../models/curriculo';
 import { CurriculoResponseDTO } from '../models/DTOs/responses/CurriculoResponseDTO';
 import { CurriculosResponseDTO } from '../models/DTOs/responses/CurriculosResponseDTO';
+import { RelatorioEscolaridade } from '../models/relatorioEscolaridade';
 
 @Injectable({
   providedIn: 'root'
@@ -99,6 +100,20 @@ export class CurriculoService {
     return this.http.get<CurriculosResponseDTO>(
       `${this.apiUrl}/curriculos`,
       { headers, params }
+    );
+  }
+
+  getRelatorioEscolaridade(): Observable<RelatorioEscolaridade[]> {
+    const token = this.authService.getToken();
+  
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+  
+    return this.http.get<RelatorioEscolaridade[]>(
+      `${this.apiUrl}/curriculos/escolaridades`,
+      { headers }
     );
   }
 }

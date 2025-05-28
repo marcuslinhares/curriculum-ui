@@ -6,6 +6,7 @@ import { CadastroUsuarioPageComponent } from './pages/cadastro-usuario-page/cada
 import { AdminGuard } from './guards/admin.guard';
 import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 import { CurriculoAvaliacaoPageComponent } from './pages/curriculo-avaliacao-page/curriculo-avaliacao-page.component';
+import { RelatoriosComponent } from './pages/relatorios/relatorios.component';
 
 export const routes: Routes = [
   {
@@ -17,6 +18,12 @@ export const routes: Routes = [
   {
     path: 'admin',
     component: AdminPageComponent,
+    canActivate: [AuthGuard, AdminGuard]
+  },
+
+  {
+    path: 'relatorios',
+    component: RelatoriosComponent,
     canActivate: [AuthGuard, AdminGuard]
   },
 
